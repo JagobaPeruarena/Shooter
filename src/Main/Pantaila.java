@@ -131,7 +131,7 @@ public class Pantaila extends JPanel implements Runnable {
 	}
 
 	private void arerioasortu() {
-
+		//Etsailak sortu
 		for (int i = 0; i < 105; i++) {
 			Espaziontzia enemie = new Espaziontzia(this, s);
 			enemie.enemieSortu();
