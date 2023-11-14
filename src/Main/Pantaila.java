@@ -251,6 +251,7 @@ public class Pantaila extends JPanel implements Runnable {
 	
 
 	private void stageup() {
+		//Sigue sin funcionar
 		stop=false;
 		enemiestokill=enemiestokill+5;
 		killcount=0;
