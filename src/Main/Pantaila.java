@@ -62,6 +62,12 @@ public class Pantaila extends JPanel implements Runnable {
 	boolean stop=false;
 	int lvl=1;
 	int j = 0;
+	String textSc="Score: ";
+	String Tscore="";
+	int score=0;
+	String texttime="Time until next wave:";
+	String timerSC="";
+	int timed=0;
 
 	public Pantaila() {
 		this.setPreferredSize(new Dimension(pantailaZabalera, pantailaAltuera));
@@ -84,7 +90,11 @@ public class Pantaila extends JPanel implements Runnable {
 		g2.drawImage(espaziontzia.getIrudia(), (int) Math.round(espaziontzia.getXpos()),
 				(int) Math.round(espaziontzia.getYpos()), (int) Math.round(espaziontzia.getAltuera()),
 				(int) Math.round(espaziontzia.getZabalera()), null);
-
+		g2.drawString(textSc, 14, 14);
+		g2.drawString(Tscore, 54, 14);
+		if (timed>0) {  g2.drawString(timerSC, pantailaZabalera/2, pantailaAltuera/4);
+		g2.drawString(texttime, (pantailaZabalera/2)-50, (pantailaAltuera/4)-16);
+		}
 		for (int i = 0; i < balak.size(); i++) {
 			g2.drawImage(balak.get(i).getIrudia(), (int) Math.round(balak.get(i).getXpos()),
 					(int) Math.round(balak.get(i).getYpos()), (int) Math.round(balak.get(i).getAltuera()),
@@ -111,6 +121,8 @@ public class Pantaila extends JPanel implements Runnable {
 			kalkulatu();
 
 			// 2) Margotu (PaintComponenti deitzen dio)
+			
+				
 			
 				repaint();
 
@@ -163,19 +175,22 @@ public class Pantaila extends JPanel implements Runnable {
 			disparoCooldown--;
 
 		}
+		if (timed>0) {
+			timed--;
+		}
 		
 		
 		
 		if (enemiestokill<=killcount || (enemiesEspawned==0 && killcount>2)) {
 			stop=true;
-			enemiecooldown=1000;
+			enemiecooldown=2400;
 			s.releaseAll();
 			repaint();
-			
+			timed=2400;
 			String[] options = {"Attack Speed UP","Damage UP"};
 			int selection = -2;
-			selection = JOptionPane.showOptionDialog(null, "Choose Upgrade!","Upgrade", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,options[1]);
-			
+			selection = JOptionPane.showOptionDialog(null, "Choose Upgrade! 12s","Upgrade", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,options[1]);
+			System.out.println("Enter");
 			
 			if(selection == 0){
 				espaziontzia.setCooldown(espaziontzia.getCooldown()/2);
@@ -221,6 +236,8 @@ public class Pantaila extends JPanel implements Runnable {
 				if (enemies.get(i).getXpos() < 0) {
 					enemies.remove(i);
 					lost=true;
+					
+					//Colision jugador y enemigo
 				}else if ((espaziontzia.getXpos() + espaziontzia.getZabalera()) >= enemies.get(i).getXpos()&& espaziontzia.getYpos() < (enemies.get(i).getYpos() + enemies.get(i).getAltuera()) && (espaziontzia.getYpos() + espaziontzia.getAltuera() > (enemies.get(i).getYpos()))) {
 					enemies.remove(i);
 					lost=true;
@@ -241,8 +258,8 @@ public class Pantaila extends JPanel implements Runnable {
 			JOptionPane.showMessageDialog(getComponentPopupMenu(), "\tGAME OVER");
 		}
 		
-		
-		
+		Tscore=""+score;
+		timerSC=""+timed/180;
 		
 		
 
@@ -253,10 +270,11 @@ public class Pantaila extends JPanel implements Runnable {
 	private void stageup() {
 		//Sigue sin funcionar
 		stop=false;
+		score+=1000;
 		enemiestokill=enemiestokill+5;
 		killcount=0;
 		enemiesEspawned=0;
-		enemiecooldown=0;
+		
 		lvl++;
 		System.out.println("Next level");
 		for (int i = 0; i < enemies.size(); i++) {
@@ -292,6 +310,7 @@ public class Pantaila extends JPanel implements Runnable {
 		for (Espaziontzia espaziontziaK : etsaiakKendu) {
 			enemies.remove(espaziontziaK);
 			System.out.println("pi");
+			score+=100;
 			killcount++;
 			
 		}
