@@ -78,7 +78,7 @@ public class Espaziontzia extends Objetua{
 		super.setAbiadura(1);
 		
 		try { 
-			super.setIrudia(ImageIO.read(new FileInputStream("res/Espaziontzia.png"))); 
+			super.setIrudia(ImageIO.read(new FileInputStream("res/wasp.png"))); 
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -98,8 +98,8 @@ public class Espaziontzia extends Objetua{
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		super.setAltuera(super.getIrudia().getHeight()*3);
-		super.setZabalera(super.getIrudia().getWidth()*3);
+		super.setAltuera(37);
+		super.setZabalera(38);
 	}
 	
 
