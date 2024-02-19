@@ -244,7 +244,7 @@ public class Pantaila extends JPanel implements Runnable {
 		if (timed>0) {
 			timed--;
 		}
-		if ((score==0 || score == 6000) && !boss.isActive()) {
+		if ((score==0 || score == 6000 ) && !boss.isActive()) {
 			
 			boss.bossSortu();
 			boss.setActive(true);
@@ -383,6 +383,7 @@ public class Pantaila extends JPanel implements Runnable {
 					}else if (minionboss.get(i).getXpos() >= pantailaZabalera && minionboss.get(i).getAbiadura()==1) {
 							
 							minionboss.get(i).setAbiadura(-1);
+					};
 							
 				}else if (lvl==3) {
 					
@@ -396,7 +397,7 @@ public class Pantaila extends JPanel implements Runnable {
 						
 					
 					//Colision jugador y enemigo
-				}else if ((espaziontzia.getXpos() + espaziontzia.getZabalera()) >= minionboss.get(i).getXpos()&& (minionboss.get(i).getXpos()+minionboss.get(i).getZabalera())>=espaziontzia.getXpos()   && espaziontzia.getYpos() < (minionboss.get(i).getYpos() + minionboss.get(i).getAltuera()) && (espaziontzia.getYpos() + espaziontzia.getAltuera() > (minionboss.get(i).getYpos()))) {
+				 if ((espaziontzia.getXpos() + espaziontzia.getZabalera()) >= minionboss.get(i).getXpos()&& (minionboss.get(i).getXpos()+minionboss.get(i).getZabalera())>=espaziontzia.getXpos()   && espaziontzia.getYpos() < (minionboss.get(i).getYpos() + minionboss.get(i).getAltuera()) && (espaziontzia.getYpos() + espaziontzia.getAltuera() > (minionboss.get(i).getYpos()))) {
 					minionboss.remove(i);
 					lost=true;
 				}
@@ -474,7 +475,7 @@ public class Pantaila extends JPanel implements Runnable {
 		if (boss.isActive()) {
 			for (int j = 0; j < balak.size(); j++) {
 				for (int k = 0; k < minionboss.size(); k++) {
-					if ((balak.get(j).getXpos() + balak.get(j).getZabalera()) >= minionboss.get(k).getXpos()
+					if ((balak.get(j).getXpos() + balak.get(j).getZabalera()) >= minionboss.get(k).getXpos() && (minionboss.get(k).getXpos()+minionboss.get(k).getZabalera())>=balak.get(j).getXpos()
 							&& balak.get(j).getYpos() < (minionboss.get(k).getYpos() + minionboss.get(k).getAltuera())
 							&& (balak.get(j).getYpos() + balak.get(j).getAltuera()) > (minionboss.get(k).getYpos())) {
 						balak.get(j).setIndarra(balak.get(j).getIndarra() - 1);
@@ -494,10 +495,15 @@ public class Pantaila extends JPanel implements Runnable {
 						
 					}
 					for (Bala balaK : balakKendu) {
-						
-						barravidatotal-=barravidatotal/boss.getHP()*espaziontzia.getDmg();
+						if (lvl==1) {
+						barravidatotal-=barravidatotal/(boss.getHP()*espaziontzia.getDmg());
 						boss.setHP(boss.getHP()-espaziontzia.getDmg());
-						posbarravida+=espaziontzia.getDmg()*(8-lvl);
+						posbarravida+=espaziontzia.getDmg()+2;
+						}else {
+							barravidatotal-=barravidatotal/(boss.getHP()*espaziontzia.getDmg());
+							boss.setHP(boss.getHP()-espaziontzia.getDmg());
+							posbarravida+=espaziontzia.getDmg()+(7-lvl);
+						}
 						balak.remove(balaK);
 						System.out.println("Balas removed");
 						
